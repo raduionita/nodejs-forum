@@ -24,15 +24,18 @@ app.get('/', function(req, res) {
 });
 
 app.get('/users', function(req, res) {
+  var users = {};
   pg.connect(DATABASE_URL, function(err, client, done) {
     client.query('SELECT * FROM users', function(err, result) {
       done();
       if(err)
         return console.error(err);
-      console.log(result.rows);
+      users = result.rows;
     });
   });
-  res.send('users');
+  res.render('users', { 
+    users: JSON.stringify(users)
+  });
 });
 
 var port = Number(process.env.PORT || 5000);
