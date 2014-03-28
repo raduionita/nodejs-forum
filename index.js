@@ -3,10 +3,21 @@ var logfmt  = require('logfmt');
 
 var app = express();
 
+app.configuration(function() {
+  app.set('views', __dirname +'/views');
+  app.set('view engine', 'jade');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(express.static(__dirname +'/public'));
+});
+
 app.use(logfmt.requestLogger());
 
 app.get('/', function(req, res) {
-  res.send('Hello world!');
+  res.render('index', { 
+    pageTitle: 'Basic NodeJS Forum'
+  });
 });
 
 var port = Number(process.env.PORT || 5000);
