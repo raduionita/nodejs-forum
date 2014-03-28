@@ -4,7 +4,7 @@ var pg      = require('pg');
 
 var app = express();
 
-var DATABAS_URL = 'postgres://kordnmeitzjojc:8LiraiRea-VUnjIWkSWoMYno-3@ec2-54-197-237-171.compute-1.amazonaws.com:5432/detcve4tb7vbg8';
+var DATABASE_URL = 'postgres://kordnmeitzjojc:8LiraiRea-VUnjIWkSWoMYno-3@ec2-54-197-237-171.compute-1.amazonaws.com:5432/detcve4tb7vbg8';
 
 app.configure(function() {
   app.set('views', __dirname +'/views');
