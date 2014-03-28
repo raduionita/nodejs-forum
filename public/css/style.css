@@ -1,1 +1,25 @@
-.main { background: #F0F0F0; border: 1px solid #E0E0E0; }
+#header {
+  width: 1020px;
+  height: 30px;
+  margin: 0 auto;
+  
+  background: #F0F0F0; 
+  border: 1px solid #E0E0E0; 
+}
+
+#content { 
+  width: 1020px;
+  margin: 0 auto;
+  
+  background: #F0F0F0; 
+  border: 1px solid #E0E0E0; 
+}
+
+#footer {
+  width: 1020px;
+  height: 100px;
+  margin: 0 auto;
+  
+  background: #F0F0F0; 
+  border: 1px solid #E0E0E0; 
+}
