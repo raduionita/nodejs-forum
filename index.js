@@ -24,7 +24,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/users', function(req, res) {
-  var users = {};
+  var users = [];
   var client = new pg.Client(DATABASE_URL);
   var query;
   client.connect(function(err) {
