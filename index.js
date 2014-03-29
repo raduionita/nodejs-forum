@@ -36,10 +36,10 @@ app.get('/users', function(req, res) {
     users.push(row);
   });
   query.on('end', function(result) {
+    res.render('users', { 
+      users: JSON.stringify(users)
+    });
     client.end();
-  });
-  res.render('users', { 
-    users: JSON.stringify(users)
   });
 });
 
