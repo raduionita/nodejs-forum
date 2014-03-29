@@ -25,13 +25,18 @@ app.get('/', function(req, res) {
 
 app.get('/users', function(req, res) {
   var users = {};
-  pg.connect(DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM users', function(err, result) {
-      done();
-      if(err)
-        return console.error(err);
-      users = result.rows;
-    });
+  var client = new pg.Client(DATABASE_URL);
+  var query;
+  client.connect(function(err) {
+    if(err)
+      return console.error('Could not connect to postgres', err);
+  });
+  query = client.query('SELECT * FROM users');
+  query.on('row', function(row, result) {
+    users.push(row);
+  });
+  query.on('end', function(result) {
+    client.end();
   });
   res.render('users', { 
     users: JSON.stringify(users)
