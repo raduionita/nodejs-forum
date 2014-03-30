@@ -4,19 +4,21 @@ var async   = require('async');
 module.exports = function(app) {
   
   app.get('*', function(req, res) {
-    // auth
+    // auth   : guest, user, admin
     // headers
   });
-
-  app.get('/', require('./routes/index'));
   
-  app.get('/', function(req, res) {
-    res.render('index', { 
-      pageTitle: 'Node Forum'
-    });
+  app.get('/', require('./routes/index').index);                                  // list forums
+  
+  app.get('/forum/:key', function(req, res) {                                     // list topics
+    res.send('/forum/:key');
   });
-
-  app.get('/users', function(req, res) {
+  
+  app.get('/topic/:key', function(req, res) {                                     // list messages
+    res.send('/topic/:key');
+  });
+  
+  app.get('/users', function(req, res) {                                          // list users | auth
     var users = [];
     var client = new pg.Client(process.env.DATABASE_URL);
     var query;
@@ -35,5 +37,11 @@ module.exports = function(app) {
       client.end();
     });
   });
+  
+  app.get('/users/:key', function(req, res) {                                     // show user profile
+    res.send('/users/:key');
+  });
+  
+  app.get('*', require('./routes/index').error404);
   
 };
