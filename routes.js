@@ -8,7 +8,9 @@ module.exports = function(app) {
     // headers
   });
   
-  app.get('/', require('./routes/index').index);                                  // list forums
+  var index =  require('./routes/index')(app);
+  
+  app.get('/', index.index);                                  // list forums
   
   app.get('/forum/:key', function(req, res) {                                     // list topics
     res.send('/forum/:key');
@@ -42,6 +44,6 @@ module.exports = function(app) {
     res.send('/users/:key');
   });
   
-  app.get('*', require('./routes/index').error404);
+  app.get('*', index.error404);
   
 };
