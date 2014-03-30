@@ -1,10 +1,7 @@
 var express = require('express');
 var logfmt  = require('logfmt');
-var pg      = require('pg');
+var app     = express();
 
-var app = express();
-
-var DATABASE_URL = 'postgres://kordnmeitzjojc:8LiraiRea-VUnjIWkSWoMYno-3@ec2-54-197-237-171.compute-1.amazonaws.com:5432/detcve4tb7vbg8';
 
 app.configure(function() {
   app.set('views', __dirname +'/views');
@@ -15,35 +12,8 @@ app.configure(function() {
   app.use(express.static(__dirname +'/public'));
 });
 
-app.use(logfmt.requestLogger());
+require('./routes')(app);
 
-app.get('/', function(req, res) {
-  res.render('index', { 
-    pageTitle: 'Basic NodeJS Forum'
-  });
-});
-
-app.get('/users', function(req, res) {
-  var users = [];
-  var client = new pg.Client(DATABASE_URL);
-  var query;
-  client.connect(function(err) {
-    if(err)
-      return console.error('Could not connect to postgres', err);
-  });
-  query = client.query('SELECT * FROM users');
-  query.on('row', function(row, result) {
-    users.push(row);
-  });
-  query.on('end', function(result) {
-    res.render('users', { 
-      users: JSON.stringify(users)
-    });
-    client.end();
-  });
-});
-
-var port = Number(process.env.PORT || 5000);
-app.listen(port, function() {
-  console.log('Listentning on '+ port);
+app.listen(Number(process.env.PORT || 5000), function() {
+  console.log('Listentning...');
 });
