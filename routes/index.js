@@ -4,7 +4,7 @@ module.export = function() {
       res.render('index', { 
         pageTitle: 'Node Forum'
       });
-    }
+    },
     error404: function(req, res) {
       res.send('404 Not Found!');
     }
