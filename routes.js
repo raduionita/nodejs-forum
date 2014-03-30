@@ -8,19 +8,16 @@ module.exports = function(app) {
     // headers
   });
   
-  app.get('/', function(req, res) {                                               // list forums
-    res.render('index', { 
-      pageTitle: 'Node Forum'
-    });
-  });
+  app.get('/', require('./routes/index').index);                                  // list forums
+  app.post('/login',  require('./routes/index').login);
+  app.post('/signup', require('./routes/index').signup);
   
-  app.get('/forum/:key', function(req, res) {                                     // list topics
-    res.send('/forum/:key');
-  });
+  app.get('/forum/:key', forum.index);                                            // list topics
+  app.post('/forum/:key', auth, forum.create);                                    // create topics
+  app.del('/forum/:key', auth, forum.delete);
   
-  app.get('/topic/:key', function(req, res) {                                     // list messages
-    res.send('/topic/:key');
-  });
+  app.get('/topic/:key', topic.index);                                            // list messages
+   
   
   app.get('/users', function(req, res) {                                          // list users | auth
     var users = [];
