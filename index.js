@@ -1,5 +1,7 @@
 var express = require('express');
 var logfmt  = require('logfmt');
+var pg      = require('pg');
+var async   = require('async');
 var app     = express();
 
 

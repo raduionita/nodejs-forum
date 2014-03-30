@@ -1,5 +1,3 @@
-var pg      = require('pg');
-var async   = require('async');
 
 module.exports = function(app) {
   
