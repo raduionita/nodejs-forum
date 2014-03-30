@@ -8,9 +8,11 @@ module.exports = function(app) {
     // headers
   });
   
-  var index =  require('./routes/index')(app);
-  
-  app.get('/', index.index);                                  // list forums
+  app.get('/', function(req, res) {                                               // list forums
+    res.render('index', { 
+      pageTitle: 'Node Forum'
+    });
+  });
   
   app.get('/forum/:key', function(req, res) {                                     // list topics
     res.send('/forum/:key');
@@ -44,6 +46,8 @@ module.exports = function(app) {
     res.send('/users/:key');
   });
   
-  app.get('*', index.error404);
+  app.get('*', function(req, res) {
+    res.send('404 Not Found!');
+  });
   
 };
